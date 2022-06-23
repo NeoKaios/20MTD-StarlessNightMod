@@ -12,11 +12,11 @@ namespace StarlessNightMod
         [HarmonyPrefix]
         static void InitStateExit_prefix()
         {
-            GameObject fogofwar = FindInSceneByName("FogOfWarCanvas");
+            GameObject fogofwar = GameObject.Find("FogOfWarCanvas");
 
-            if (fogofwar)   
+            if (fogofwar)
             {
-                GameObject im = FindChildByName(fogofwar, "FogOfWarImage");
+                GameObject im = fogofwar.transform.Find("FogOfWarImage").gameObject;
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -35,40 +35,14 @@ namespace StarlessNightMod
                 if (objectPoolItem.tag == "SmallXP" || objectPoolItem.tag == "LargeXP")
                 {
                     GameObject xpObject = objectPoolItem.objectToPool;
+                    GameObject bounce = xpObject.transform.Find("Bounce").gameObject;
 
-                    GameObject blue = FindChildByName(xpObject, "RenderCircleBlue");
+                    GameObject blue = bounce.transform.Find("RenderCircleBlue").gameObject;
                     blue.SetActive(false);
-                    GameObject red = FindChildByName(xpObject, "RenderCircleRed");
+                    GameObject red = bounce.transform.Find("RenderCircleRed").gameObject;
                     red.SetActive(false);
                 }
             }
-        }
-        static public GameObject FindChildByName(GameObject go, string name)
-        {
-
-            Transform[] transform = go.GetComponentsInChildren<Transform>();
-            foreach (Transform child in transform)
-            {
-                if (child.gameObject.name == name)
-                {
-                    return child.gameObject;
-                }
-            }
-            return null;
-        }
-        static public GameObject FindInSceneByName(string name)
-        {
-
-            GameObject[] gos = SceneManager.GetActiveScene().GetRootGameObjects();
-            foreach (GameObject go in gos)
-            {
-                GameObject res = FindChildByName(go, name);
-                if (res)
-                {
-                    return res;
-                }
-            }
-            return null;
         }
     }
 }
