@@ -12,7 +12,6 @@ namespace StarlessNightMod
 
         public void Awake()
         {
-            Logger.LogInfo("patch methods (NightPatch).");
             try
             {
                 Harmony.CreateAndPatchAll(typeof(NightPatch));

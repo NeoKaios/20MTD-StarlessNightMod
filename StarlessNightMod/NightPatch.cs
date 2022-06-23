@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using flanne.Core;
+using flanne;
 using HarmonyLib;
 
 namespace StarlessNightMod
@@ -14,12 +9,12 @@ namespace StarlessNightMod
     public class NightPatch
     {
         [HarmonyPatch(typeof(InitState), "Enter")]
-        [HarmonyPostfix]
-        static void InitStateExit_postfix()
+        [HarmonyPrefix]
+        static void InitStateExit_prefix()
         {
             GameObject fogofwar = FindInSceneByName("FogOfWarCanvas");
 
-            if (fogofwar)
+            if (fogofwar)   
             {
                 GameObject im = FindChildByName(fogofwar, "FogOfWarImage");
 
@@ -27,6 +22,24 @@ namespace StarlessNightMod
                 {
                     GameObject clone = GameObject.Instantiate(im);
                     clone.transform.SetParent(fogofwar.transform);
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(ObjectPooler), "Awake")]
+        [HarmonyPrefix]
+        static void ObjectPoolerAwake_prefix(ref ObjectPooler __instance)
+        {
+            foreach (ObjectPoolItem objectPoolItem in __instance.itemsToPool)
+            {
+                if (objectPoolItem.tag == "SmallXP" || objectPoolItem.tag == "LargeXP")
+                {
+                    GameObject xpObject = objectPoolItem.objectToPool;
+
+                    GameObject blue = FindChildByName(xpObject, "RenderCircleBlue");
+                    blue.SetActive(false);
+                    GameObject red = FindChildByName(xpObject, "RenderCircleRed");
+                    red.SetActive(false);
                 }
             }
         }
