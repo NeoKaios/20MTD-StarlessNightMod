@@ -28,7 +28,6 @@ namespace StarlessNightMod
         {
             foreach (ObjectPoolItem objectPoolItem in __instance.itemsToPool)
             {
-                Debug.Log(objectPoolItem.tag);
                 if (objectPoolItem.tag == "SmallXP" || objectPoolItem.tag == "LargeXP")
                 {
                     GameObject xpObject = objectPoolItem.objectToPool;
