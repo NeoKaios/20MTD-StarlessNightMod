@@ -8,3 +8,12 @@ A [BepInEx](https://github.com/BepInEx/BepInEx/releases) plugin for [20 Minutes 
 - Other source of light remained for now (fire, bosses, bullet impacts)
 
 <img src="icon.png" width="700">
+
+
+## For modders
+
+- Clone the project
+- Open repo in VSCode
+- Setup $GameDir variable in *DebugUtilityMod.csproj*
+- ```dotnet build``` to build and deploy mod
+- ```dotnet publish``` to publish a .zip file
