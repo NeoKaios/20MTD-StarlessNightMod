@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using flanne.Core;
 using flanne;
 using HarmonyLib;
@@ -12,14 +11,13 @@ namespace StarlessNightMod
         [HarmonyPrefix]
         static void InitStateEnter_prefix()
         {
-                GameObject im = GameObject.Find("FogOfWarImage");
+            GameObject im = GameObject.Find("FogOfWarImage");
 
-                for (int i = 0; i < 2; i++)
-                {
-                    GameObject clone = GameObject.Instantiate(im);
-                    clone.transform.SetParent(im.GetComponentInParent<Transform>());
-                }
-            
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject clone = GameObject.Instantiate(im);
+                clone.transform.SetParent(im.GetComponentInParent<Transform>());
+            }
         }
 
         [HarmonyPatch(typeof(ObjectPooler), "Awake")]
@@ -34,9 +32,9 @@ namespace StarlessNightMod
                     GameObject bounce = xpObject.transform.Find("Bounce").gameObject;
 
                     GameObject blue = bounce.transform.Find("RenderCircleBlue").gameObject;
-                    GameObject.DestroyImmediate(blue);
+                    blue.SetActive(false);
                     GameObject red = bounce.transform.Find("RenderCircleRed").gameObject;
-                    GameObject.DestroyImmediate(red);
+                    red.SetActive(false);
                 }
                 else if (objectPoolItem.tag == "Boomer" ||
                          objectPoolItem.tag == "BrainMonster" ||
