@@ -1,0 +1,9 @@
+{
+    "name": "StarlessNight",
+    "version_number": "1.1.0",
+    "website_url": "",
+    "description": "This mod darkens the night and makes enemies less visible",
+    "dependencies": [
+        "BepInExPackMTD-BepInExPack_20MTD-1.0.0"
+    ]
+}
