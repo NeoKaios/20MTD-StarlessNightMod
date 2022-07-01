@@ -1,5 +1,8 @@
-﻿using BepInEx;
+﻿using System.Reflection;
+using BepInEx;
 using HarmonyLib;
+using UnityEngine;
+using DarknessLib;
 
 namespace StarlessNightMod
 {
@@ -10,7 +13,9 @@ namespace StarlessNightMod
         {
             try
             {
-                Harmony.CreateAndPatchAll(typeof(NightPatch));
+                DifficultyControllerPatch.AddDifficultyMod(
+                    ScriptableObject.CreateInstance<NightPatch>().Init("StarlessNight", 16, "The night is darker and the enemies sneakier"));
+                Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
             }
             catch
             {
