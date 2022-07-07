@@ -13,8 +13,10 @@ namespace StarlessNightMod
         {
             try
             {
-                DifficultyControllerPatch.AddDifficultyMod(
-                    ScriptableObject.CreateInstance<NightPatch>().Init("StarlessNight", 16, "The night is darker and the enemies sneakier"));
+                DarknessCore core = new DarknessCore(16, true);
+                core.SetDifficultyMod(
+                    ScriptableObject.CreateInstance<NightPatch>().Init("StarlessNight", 16, "The night is darker and the enemies sneakier")
+                    , 16);
                 Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
             }
             catch
